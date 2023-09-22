@@ -34,6 +34,7 @@
             comboBoxTopic = new ComboBox();
             buttonStart = new Button();
             buttonExit = new Button();
+            labelRecord = new Label();
             SuspendLayout();
             // 
             // label1
@@ -86,7 +87,7 @@
             // 
             // buttonExit
             // 
-            buttonExit.Location = new Point(59, 229);
+            buttonExit.Location = new Point(59, 268);
             buttonExit.Name = "buttonExit";
             buttonExit.Size = new Size(277, 29);
             buttonExit.TabIndex = 5;
@@ -94,11 +95,21 @@
             buttonExit.UseVisualStyleBackColor = true;
             buttonExit.Click += buttonExit_Click;
             // 
+            // labelRecord
+            // 
+            labelRecord.AutoSize = true;
+            labelRecord.Location = new Point(130, 227);
+            labelRecord.Name = "labelRecord";
+            labelRecord.Size = new Size(74, 20);
+            labelRecord.TabIndex = 6;
+            labelRecord.Text = "Best time:";
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(392, 274);
+            ClientSize = new Size(392, 309);
+            Controls.Add(labelRecord);
             Controls.Add(buttonExit);
             Controls.Add(buttonStart);
             Controls.Add(comboBoxTopic);
@@ -120,5 +131,6 @@
         private ComboBox comboBoxTopic;
         private Button buttonStart;
         private Button buttonExit;
+        private Label labelRecord;
     }
 }

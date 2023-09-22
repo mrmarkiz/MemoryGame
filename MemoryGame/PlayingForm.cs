@@ -176,36 +176,59 @@ namespace MemoryGame
             else
             {
                 string result = $"Congratulations!!!\nYou needed {tries} tries\nTime spent: ";
-                if (time >= 3600)
-                {
-                    if (time / 3600 < 10)
-                        result += 0;
-                    result += $"{time / 3600}:";
-                    if ((time % 3600) / 60 < 10)
-                        result += 0;
-                    result += $"{(time % 3600) / 60}:";
-                    if (time % 60 < 10)
-                        result += 0;
-                    result += time % 60;
-                }
-                else
-                {
-                    if (time / 60 < 10)
-                        result += 0;
-                    result += $"{time / 60}:";
-                    if (time % 60 < 10)
-                        result += 0;
-                    result += time % 60;
-                }
 
+                if (time / 60 < 10)
+                    result += 0;
+                result += $"{time / 60}:";
+                if (time % 60 < 10)
+                    result += 0;
+                result += time % 60;
+
+                timer1.Stop();
                 MessageBox.Show(result, "You won", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                tryUpdateBest();
                 this.Close();
+            }
+        }
+
+        private void tryUpdateBest()
+        {
+            int minutes, seconds;
+            using (FileStream fs = new FileStream("best.txt", FileMode.OpenOrCreate))
+            {
+                using(StreamReader sr = new StreamReader(fs))
+                {
+                    string best = sr.ReadToEnd();
+                    string[] time = best.Split(':');
+                    if (time.Length < 2)
+                        time = new string[2] { "0", "0" };
+                    int.TryParse(time[0], out minutes);
+                    int.TryParse(time[1], out seconds);
+                }
+            }
+            if (minutes * 60 + seconds < this.time && (minutes != 0 && seconds != 0))
+                return;
+
+            using (FileStream fs = new FileStream("best.txt", FileMode.Truncate))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    string result = "";
+                    if (this.time / 60 < 10)
+                        result += 0;
+                    result += $"{this.time / 60}:";
+                    if (this.time % 60 < 10)
+                        result += 0;
+                    result += this.time % 60;
+                    sw.WriteLine(result);
+                }
             }
         }
 
         private void PlayingForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             menu.Enabled = true;
+            menu.updateBest();
             menu.Show();
         }
 

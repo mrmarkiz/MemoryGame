@@ -26,6 +26,25 @@ namespace MemoryGame
             }
             comboBoxDifficulty.SelectedIndex = 0;
             comboBoxTopic.SelectedIndex = 0;
+            updateBest();
+        }
+
+        public void updateBest()
+        {
+            using (FileStream fs = new FileStream("best.txt", FileMode.OpenOrCreate))
+            {
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    string best = sr.ReadToEnd();
+                    string[] time = best.Split(':');
+                    if (time.Length < 2)
+                    {
+                        labelRecord.Text = "Best time: None";
+                        return;
+                    }
+                    labelRecord.Text = $"Best time: {time[0]}:{time[1]}";
+                }
+            }
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
