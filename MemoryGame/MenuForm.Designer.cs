@@ -33,12 +33,13 @@
             label2 = new Label();
             comboBoxTopic = new ComboBox();
             buttonStart = new Button();
+            buttonExit = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(98, 9);
+            label1.Location = new Point(34, 13);
             label1.Name = "label1";
             label1.Size = new Size(123, 20);
             label1.TabIndex = 0;
@@ -49,7 +50,7 @@
             comboBoxDifficulty.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDifficulty.FormattingEnabled = true;
             comboBoxDifficulty.Items.AddRange(new object[] { "1", "2", "3" });
-            comboBoxDifficulty.Location = new Point(76, 41);
+            comboBoxDifficulty.Location = new Point(12, 45);
             comboBoxDifficulty.Name = "comboBoxDifficulty";
             comboBoxDifficulty.Size = new Size(163, 28);
             comboBoxDifficulty.TabIndex = 1;
@@ -57,7 +58,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(110, 105);
+            label2.Location = new Point(248, 13);
             label2.Name = "label2";
             label2.Size = new Size(99, 20);
             label2.TabIndex = 2;
@@ -67,7 +68,7 @@
             // 
             comboBoxTopic.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTopic.FormattingEnabled = true;
-            comboBoxTopic.Location = new Point(76, 137);
+            comboBoxTopic.Location = new Point(214, 45);
             comboBoxTopic.Name = "comboBoxTopic";
             comboBoxTopic.Size = new Size(163, 28);
             comboBoxTopic.TabIndex = 3;
@@ -75,19 +76,30 @@
             // buttonStart
             // 
             buttonStart.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            buttonStart.Location = new Point(76, 198);
+            buttonStart.Location = new Point(59, 95);
             buttonStart.Name = "buttonStart";
-            buttonStart.Size = new Size(163, 48);
+            buttonStart.Size = new Size(277, 114);
             buttonStart.TabIndex = 4;
             buttonStart.Text = "Start Game";
             buttonStart.UseVisualStyleBackColor = true;
             buttonStart.Click += buttonStart_Click;
             // 
+            // buttonExit
+            // 
+            buttonExit.Location = new Point(59, 229);
+            buttonExit.Name = "buttonExit";
+            buttonExit.Size = new Size(277, 29);
+            buttonExit.TabIndex = 5;
+            buttonExit.Text = "exit";
+            buttonExit.UseVisualStyleBackColor = true;
+            buttonExit.Click += buttonExit_Click;
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(316, 270);
+            ClientSize = new Size(392, 274);
+            Controls.Add(buttonExit);
             Controls.Add(buttonStart);
             Controls.Add(comboBoxTopic);
             Controls.Add(label2);
@@ -107,5 +119,6 @@
         private Label label2;
         private ComboBox comboBoxTopic;
         private Button buttonStart;
+        private Button buttonExit;
     }
 }
