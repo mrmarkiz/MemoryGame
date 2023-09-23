@@ -71,7 +71,7 @@ namespace MemoryGame
         //resize form deppending on columns and rows number
         private void initForm(int row, int col)
         {
-            this.Width = col * 120 + 18;
+            this.Width = col * 120 + 19;
             this.Height = row * 120 + 72;
         }
 
