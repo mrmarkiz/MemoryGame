@@ -269,7 +269,7 @@ namespace MemoryGame
             {
                 if (control is PictureBox)
                 {
-                    if (((PictureBox)control).Tag.ToString().Contains($"{tagSep[1]}/{tagSep[2]}") && ((PictureBox)control).Visible == false)
+                    if (((PictureBox)control).Tag.ToString().Contains($"image/{tagSep[1]}/{tagSep[2]}"))
                         return (PictureBox)control;
                 }
             }
