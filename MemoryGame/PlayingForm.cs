@@ -44,10 +44,6 @@ namespace MemoryGame
             this.menu = menu;
             this.difficulty = difficulty;
             this.topic = topic;
-            firstClicked = null;
-            secondClicked = null;
-            firstClickedLayout = null;
-            secondClickedLayout = null;
             tries = 0;
             time = 0;
 
