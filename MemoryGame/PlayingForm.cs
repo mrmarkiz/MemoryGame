@@ -72,7 +72,7 @@ namespace MemoryGame
         private void initForm(int row, int col)
         {
             this.Width = col * 120 + 18;
-            this.Height = row * 120 + 47;
+            this.Height = row * 120 + 72;
         }
 
         //add to the form images pictureBoxes and layout pictureBoxes
@@ -118,7 +118,7 @@ namespace MemoryGame
             //initiate image pictureBox
             pictureBox.Width = 120;
             pictureBox.Height = 120;
-            pictureBox.Top = i * 120;
+            pictureBox.Top = i * 120 + 25;
             pictureBox.Left = j * 120;
             pictureBox.Tag = $"image/{i}/{j}";
             pictureBox.BorderStyle = BorderStyle.FixedSingle;
@@ -128,7 +128,7 @@ namespace MemoryGame
             //initiate layout pictureBox
             layout.Width = 120;
             layout.Height = 120;
-            layout.Top = i * 120;
+            layout.Top = i * 120 + 25;
             layout.Left = j * 120;
             layout.Tag = $"layout/{i}/{j}";
             layout.Click += PictureBox_Click;
@@ -208,7 +208,7 @@ namespace MemoryGame
             int minutes, seconds;
             using (FileStream fs = new FileStream("best.txt", FileMode.OpenOrCreate))
             {
-                using(StreamReader sr = new StreamReader(fs))
+                using (StreamReader sr = new StreamReader(fs))
                 {
                     string best = sr.ReadToEnd();
                     string[] time = best.Split(':');
@@ -277,6 +277,14 @@ namespace MemoryGame
         private void timer1_Tick(object sender, EventArgs e)
         {
             time++;
+            string result = "Time:";
+            if (this.time / 60 < 10)
+                result += 0;
+            result += $"{this.time / 60}:";
+            if (this.time % 60 < 10)
+                result += 0;
+            result += this.time % 60;
+            labelTime.Text = result;
         }
     }
 }
