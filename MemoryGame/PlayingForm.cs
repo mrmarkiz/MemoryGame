@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,6 +29,18 @@ namespace MemoryGame
         public PlayingForm(MenuForm menu, int difficulty, string topic)
         {
             InitializeComponent();
+
+            initFormFields(menu, difficulty, topic);
+
+            initImagesNames();
+
+            initFormSize(row, col);
+            initField(row, col);
+            timer1.Start();
+        }
+
+        private void initFormFields(MenuForm menu, int difficulty, string topic)
+        {
             this.menu = menu;
             this.difficulty = difficulty;
             this.topic = topic;
@@ -37,17 +50,6 @@ namespace MemoryGame
             secondClickedLayout = null;
             tries = 0;
             time = 0;
-
-            //save images locations
-            imagesNames = new List<string>();
-            DirectoryInfo imagesDir = new DirectoryInfo($"Images\\{topic}");
-            foreach (FileInfo image in imagesDir.GetFiles())
-            {
-                if (image.Extension == ".png")
-                {
-                    imagesNames.Add($"Images\\{topic}\\{image.Name}");
-                }
-            }
 
             //count size depending on difficulty
             int row = 4, col = 4;
@@ -63,13 +65,24 @@ namespace MemoryGame
             }
             this.row = row;
             this.col = col;
-            initForm(row, col);
-            initField(row, col);
-            timer1.Start();
+        }
+
+        //save images locations
+        private void initImagesNames()
+        {
+            imagesNames = new List<string>();
+            DirectoryInfo imagesDir = new DirectoryInfo($"Images\\{topic}");
+            foreach (FileInfo image in imagesDir.GetFiles())
+            {
+                if (image.Extension == ".png")
+                {
+                    imagesNames.Add($"Images\\{topic}\\{image.Name}");
+                }
+            }
         }
 
         //resize form deppending on columns and rows number
-        private void initForm(int row, int col)
+        private void initFormSize(int row, int col)
         {
             this.Width = col * 120 + 19;
             this.Height = row * 120 + 72;
@@ -142,8 +155,10 @@ namespace MemoryGame
 
             if (pictureBox == null)
                 return;
+
             if (firstClicked != null && secondClicked != null)
                 return;
+
             if (firstClicked == null)
             {
                 firstClickedLayout = pictureBox;
@@ -151,6 +166,7 @@ namespace MemoryGame
                 firstClicked.Visible = true;
                 return;
             }
+
             if (firstClicked != null)
             {
                 tries++;
@@ -253,7 +269,7 @@ namespace MemoryGame
             {
                 if (control is PictureBox)
                 {
-                    if (((PictureBox)control).Tag.ToString().Contains($"{tagSep[1]}/{tagSep[2]}"))
+                    if (((PictureBox)control).Tag.ToString().Contains($"{tagSep[1]}/{tagSep[2]}") && ((PictureBox)control).Visible == false)
                         return (PictureBox)control;
                 }
             }
