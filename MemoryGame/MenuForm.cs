@@ -7,6 +7,7 @@ namespace MemoryGame
             InitializeComponent();
         }
 
+        //start game
         private void buttonStart_Click(object sender, EventArgs e)
         {
             PlayingForm playingForm = new PlayingForm(this, int.Parse(comboBoxDifficulty.SelectedItem.ToString()), comboBoxTopic.SelectedItem.ToString());
@@ -15,6 +16,7 @@ namespace MemoryGame
             this.Hide();
         }
 
+        //initiate topics list and best time
         private void MenuForm_Load(object sender, EventArgs e)
         {
             DirectoryInfo imagesChecker = new DirectoryInfo("Images");
@@ -29,6 +31,7 @@ namespace MemoryGame
             updateBest();
         }
 
+        //update best time
         public void updateBest()
         {
             using (FileStream fs = new FileStream("best.txt", FileMode.OpenOrCreate))
@@ -47,6 +50,7 @@ namespace MemoryGame
             }
         }
 
+        //exit the program
         private void buttonExit_Click(object sender, EventArgs e)
         {
             DialogResult answer = MessageBox.Show("Are you sure?", "Check", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

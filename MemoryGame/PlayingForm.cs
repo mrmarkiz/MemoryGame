@@ -24,6 +24,7 @@ namespace MemoryGame
         private int col;
         private int tries;
         private long time;
+
         public PlayingForm(MenuForm menu, int difficulty, string topic)
         {
             InitializeComponent();
@@ -37,6 +38,7 @@ namespace MemoryGame
             tries = 0;
             time = 0;
 
+            //save images locations
             imagesNames = new List<string>();
             DirectoryInfo imagesDir = new DirectoryInfo($"Images\\{topic}");
             foreach (FileInfo image in imagesDir.GetFiles())
@@ -47,6 +49,7 @@ namespace MemoryGame
                 }
             }
 
+            //count size depending on difficulty
             int row = 4, col = 4;
             switch (difficulty)
             {
@@ -65,12 +68,14 @@ namespace MemoryGame
             timer1.Start();
         }
 
+        //resize form deppending on columns and rows number
         private void initForm(int row, int col)
         {
             this.Width = col * 120 + 18;
             this.Height = row * 120 + 47;
         }
 
+        //add to the form images pictureBoxes and layout pictureBoxes
         private void initField(int rowCount, int columnsCount)
         {
             for (int i = 0; i < rowCount; i++)
@@ -86,6 +91,7 @@ namespace MemoryGame
             initImages();
         }
 
+        //set images for image pictureBoxes
         private void initImages()
         {
             Random rnd = new Random();
@@ -109,6 +115,7 @@ namespace MemoryGame
 
         private void initPictureBox(PictureBox pictureBox, int i, int j, PictureBox layout)
         {
+            //initiate image pictureBox
             pictureBox.Width = 120;
             pictureBox.Height = 120;
             pictureBox.Top = i * 120;
@@ -118,6 +125,7 @@ namespace MemoryGame
             pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox.Visible = false;
 
+            //initiate layout pictureBox
             layout.Width = 120;
             layout.Height = 120;
             layout.Top = i * 120;
@@ -127,9 +135,11 @@ namespace MemoryGame
             layout.BorderStyle = BorderStyle.FixedSingle;
         }
 
+        //when layout is clicked
         private void PictureBox_Click(object? sender, EventArgs e)
         {
             PictureBox pictureBox = sender as PictureBox;
+
             if (pictureBox == null)
                 return;
             if (firstClicked != null && secondClicked != null)
@@ -163,15 +173,16 @@ namespace MemoryGame
             }
         }
 
+        //check whether there still are any hidden image pictureBoxes
         private void checkWinner()
         {
-            List<PictureBox> invisible = new List<PictureBox>();
+            List<PictureBox> visible = new List<PictureBox>();
             foreach (var control in this.Controls)
             {
                 if (control is PictureBox && ((PictureBox)control).Tag.ToString().Contains("image") && ((PictureBox)control).Visible == true)
-                    invisible.Add((PictureBox)control);
+                    visible.Add((PictureBox)control);
             }
-            if (invisible.Count() < row * col)
+            if (visible.Count() < row * col)
                 return;
             else
             {
@@ -191,6 +202,7 @@ namespace MemoryGame
             }
         }
 
+        //update best time if record is beaten
         private void tryUpdateBest()
         {
             int minutes, seconds;
@@ -225,6 +237,7 @@ namespace MemoryGame
             }
         }
 
+
         private void PlayingForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             menu.Enabled = true;
@@ -232,6 +245,7 @@ namespace MemoryGame
             menu.Show();
         }
 
+        //get the image pictureBox using layout pictureBox's Tag
         private PictureBox getRelativeLayout(string tag)
         {
             string[] tagSep = tag.Split('/');
@@ -246,6 +260,7 @@ namespace MemoryGame
             return null;
         }
 
+        //delay before hiding 2 unmatched images
         private void unmatchTimer_Tick(object sender, EventArgs e)
         {
             unmatchTimer.Stop();
